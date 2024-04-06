@@ -17,6 +17,9 @@ struct{
     Producto *Productos; //El tamaño de este arreglo depende de la variable “CantidadProductosAPedir”
 } typedef Cliente;
 
+void cargarDatos(Cliente *Cliente, int cant);
+
+
 int main()
 {
 
@@ -29,6 +32,7 @@ int main()
     if (clientes <= cantClientes)
     {
         datosClientes = malloc(sizeof(Cliente *) * clientes);
+
 
     }
     else
@@ -48,4 +52,28 @@ int main()
     return 0;
 }
 
+void cargarDatos(Cliente *Clientes, int cant)
+{
+    char nombre[50];
+    int longitud;
+
+    for (int i = 0; i < cant; i++)
+    {
+        Clientes->ClienteID = i + 1;
+
+        printf("================INGRESO DE DATOS DEL CLIENTE================");
+        printf("Numero de Cliente: %d\n ", Clientes->ClienteID);
+        printf("Nombre del Cliente: ");
+        gets(nombre);
+        longitud = strlen(nombre) + 1;
+        Clientes->NombreCliente = malloc(sizeof(char * ) * longitud);
+        strcpy(Clientes->NombreCliente, nombre);
+
+    }
+    
+
+
+
+
+}
 
