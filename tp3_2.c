@@ -9,7 +9,7 @@ int main()
     float prom;
     int max = -1;
     int min = 50001;
-    int auxIMax, auxJMax, auxIMin, auxJMin, valorMax, valorMin;
+    int auxIMax, auxJMax, auxIMin, auxJMin;
 
     srand(time(NULL));
 
@@ -54,24 +54,24 @@ int main()
             {
                 auxIMax = i;
                 auxJMax = j;
-                valorMax = simProd[i][j];
+                max = simProd[i][j];
             }
 
             if (simProd[i][j] <= min)
             {
                 auxIMin = i;
                 auxJMin = j;
-                valorMin = simProd[i][j];
+                min = simProd[i][j];
             }
         }
     }
 
-    printf("El Valor Maximo es del Anio: %d y mes: %d\n", auxIMax, auxJMax);
-    printf("El Valor es: %d\n", valorMax);
+    printf("El Valor Maximo es del Anio: %d y mes: %d\n", auxIMax+1, auxJMax+1);
+    printf("El Valor es: %d\n", max);
     printf("---------------------------------------------------\n");
 
-    printf("El Valor Minimo es del Anio: %d y mes: %d\n", auxIMin, auxJMin);
-    printf("El Valor es: %d\n", valorMin);
+    printf("El Valor Minimo es del Anio: %d y mes: %d\n", auxIMin+1, auxJMin+1);
+    printf("El Valor es: %d\n", min);
     printf("---------------------------------------------------\n");
 
     return 0;
