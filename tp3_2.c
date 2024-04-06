@@ -73,6 +73,7 @@ int main()
     printf("El Valor Minimo es del Anio: %d y mes: %d\n", auxIMin+1, auxJMin+1);
     printf("El Valor es: %d\n", min);
     printf("---------------------------------------------------\n");
+    printf("---------------------------------------------------\n");
 
     return 0;
 }
