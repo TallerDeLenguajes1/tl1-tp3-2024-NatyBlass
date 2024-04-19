@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <time.h>
 
 char *TiposProductos[]={"Galletas","Snack","Cigarrillos","Caramelos","Bebidas"};
 
@@ -18,21 +20,25 @@ struct{
 } typedef Cliente;
 
 void cargarDatos(Cliente *Cliente, int cant);
-
+void liberarMemoria(Cliente *Clientes, int cant);
 
 int main()
 {
+    srand(time(NULL));
 
     int cantClientes = 5, clientes;
     Cliente *datosClientes;
 
+    printf("=====================================\n");
     printf("Ingrese la cantidad de Clientes: \n");
-    scanf("%d", clientes);
-    
+    scanf("%d", &clientes);
+    printf("=====================================\n");
     if (clientes <= cantClientes)
     {
         datosClientes = malloc(sizeof(Cliente *) * clientes);
 
+        cargarDatos(datosClientes, cantClientes);
+        liberarMemoria(datosClientes, cantClientes);
 
     }
     else
@@ -41,39 +47,56 @@ int main()
     }
     
 
-
-
-
-
-
-
-
-
     return 0;
 }
 
 void cargarDatos(Cliente *Clientes, int cant)
 {
     char nombre[50];
-    int longitud;
+    int longitud, cantProd;
 
     for (int i = 0; i < cant; i++)
     {
-        Clientes->ClienteID = i + 1;
+        Clientes[i].ClienteID = i + 1;
 
-        printf("================INGRESO DE DATOS DEL CLIENTE================");
-        printf("Numero de Cliente: %d\n ", Clientes->ClienteID);
+        printf("================INGRESO DE DATOS DEL CLIENTE================\n");
+        printf("Numero de Cliente: %d\n ", Clientes[i].ClienteID);
         printf("Nombre del Cliente: ");
+        fflush(stdin);
         gets(nombre);
         longitud = strlen(nombre) + 1;
-        Clientes->NombreCliente = malloc(sizeof(char * ) * longitud);
-        strcpy(Clientes->NombreCliente, nombre);
+        Clientes[i].NombreCliente = malloc(sizeof(char *) * longitud);
+        strcpy(Clientes[i].NombreCliente, nombre);
+        cantProd = 1 + rand() % 5;
+        Clientes[i].CantidadProductosAPedir = cantProd;
+        Clientes[i].Productos = malloc(sizeof(Producto *) * cantProd);
+        printf("Cantidad de Productos que pide: %d\n", cantProd);
 
+        for (int j = 0; j < cantProd; j++)
+        {
+            Clientes[i].Productos[j].ProductoID = j + 1;
+            Clientes[i].Productos[j].Cantidad = 1 + rand () % 10;
+            Clientes[i].Productos[j].TipoProducto = TiposProductos[rand() % 5];
+            Clientes[i].Productos[j].PrecioUnitario = 10 + rand() % 91;
+        
+            printf("=====================================\n");
+            printf("PRODUCTO N° %d\n", Clientes[i].Productos[j].ProductoID);
+            printf("Tipo de Producto: %s\n", Clientes[i].Productos[j].TipoProducto);
+            printf("Cantidad: %d\n", Clientes[i].Productos[j].Cantidad);
+            printf("Precio Unitario: %.2f\n", Clientes[i].Productos[j].PrecioUnitario);
+            printf("=====================================\n");
+        }
+        
     }
     
-
-
-
-
 }
 
+void liberarMemoria(Cliente *Clientes, int cant)
+{
+    for (int i = 0; i < cant; i++) 
+    {
+        free(Clientes[i].NombreCliente);
+        free(Clientes[i].Productos);
+    }
+    free(Clientes);
+}
