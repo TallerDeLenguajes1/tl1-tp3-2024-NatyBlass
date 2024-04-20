@@ -35,10 +35,10 @@ int main()
     printf("=====================================\n");
     if (clientes <= cantClientes)
     {
-        datosClientes = malloc(sizeof(Cliente *) * clientes);
+        datosClientes = malloc(sizeof(Cliente) * clientes);
 
-        cargarDatos(datosClientes, cantClientes);
-        liberarMemoria(datosClientes, cantClientes);
+        cargarDatos(datosClientes, clientes);
+        liberarMemoria(datosClientes, clientes);
 
     }
     else
@@ -60,16 +60,15 @@ void cargarDatos(Cliente *Clientes, int cant)
         Clientes[i].ClienteID = i + 1;
 
         printf("================INGRESO DE DATOS DEL CLIENTE================\n");
-        printf("Numero de Cliente: %d\n ", Clientes[i].ClienteID);
+        printf("Numero de Cliente: %d\n", Clientes[i].ClienteID);
         printf("Nombre del Cliente: ");
-        fflush(stdin);
-        gets(nombre);
+        scanf("%s", &nombre);
         longitud = strlen(nombre) + 1;
-        Clientes[i].NombreCliente = malloc(sizeof(char *) * longitud);
+        Clientes[i].NombreCliente = malloc(sizeof(char) * longitud);
         strcpy(Clientes[i].NombreCliente, nombre);
         cantProd = 1 + rand() % 5;
         Clientes[i].CantidadProductosAPedir = cantProd;
-        Clientes[i].Productos = malloc(sizeof(Producto *) * cantProd);
+        Clientes[i].Productos = malloc(sizeof(Producto) * cantProd);
         printf("Cantidad de Productos que pide: %d\n", cantProd);
 
         for (int j = 0; j < cantProd; j++)
