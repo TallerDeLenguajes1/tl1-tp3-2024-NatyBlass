@@ -21,6 +21,7 @@ struct{
 
 void cargarDatos(Cliente *Cliente, int cant);
 void liberarMemoria(Cliente *Clientes, int cant);
+int costoTotalProd(int cantProd, int precioProd);
 
 int main()
 {
@@ -58,6 +59,7 @@ void cargarDatos(Cliente *Clientes, int cant)
     for (int i = 0; i < cant; i++)
     {
         Clientes[i].ClienteID = i + 1;
+        int  totalAPagar = 0;
 
         printf("================INGRESO DE DATOS DEL CLIENTE================\n");
         printf("Numero de Cliente: %d\n", Clientes[i].ClienteID);
@@ -77,7 +79,7 @@ void cargarDatos(Cliente *Clientes, int cant)
             Clientes[i].Productos[j].Cantidad = 1 + rand () % 10;
             Clientes[i].Productos[j].TipoProducto = TiposProductos[rand() % 5];
             Clientes[i].Productos[j].PrecioUnitario = 10 + rand() % 91;
-        
+            totalAPagar = totalAPagar + costoTotalProd(Clientes[i].Productos[j].Cantidad, Clientes[i].Productos[j].PrecioUnitario);
             printf("=====================================\n");
             printf("PRODUCTO N° %d\n", Clientes[i].Productos[j].ProductoID);
             printf("Tipo de Producto: %s\n", Clientes[i].Productos[j].TipoProducto);
@@ -85,7 +87,10 @@ void cargarDatos(Cliente *Clientes, int cant)
             printf("Precio Unitario: %.2f\n", Clientes[i].Productos[j].PrecioUnitario);
             printf("=====================================\n");
         }
-        
+        printf("=========TOTAL A PAGAR=========\n");
+        printf("$%d\n", totalAPagar);
+        printf("===============================\n");
+
     }
     
 }
@@ -99,3 +104,14 @@ void liberarMemoria(Cliente *Clientes, int cant)
     }
     free(Clientes);
 }
+
+int costoTotalProd(int cantProd, int precioProd)
+{
+    int costoTotal = 0;
+
+    costoTotal = cantProd * precioProd;
+
+    return costoTotal;
+}
+
+
